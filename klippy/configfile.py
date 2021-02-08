@@ -189,7 +189,7 @@ class PrinterConfig:
         alias_filename = os.path.join(dirname, 'aliases.cfg')
         aliases = {}
         if not os.path.exists(alias_filename):
-            logging.info("Alias file '%s' not found; no aliases loaded" 
+            logging.info("Alias file '%s' not found; no aliases loaded"
                           % alias_filename)
             return aliases
         data = self._read_config_file(alias_filename)
@@ -203,7 +203,8 @@ class PrinterConfig:
             pos = line.find('=')
             if pos >= 0:
                 aliases[line[:pos].strip()] = line[pos+1:].strip()
-        logging.info("Aliases Loaded: " + ''.join(["%s: %s, " % (s, aliases[s]) for s in aliases]))
+        logging.info("Aliases Loaded: " + ''.join(["%s: %s, " % 
+                     (s, aliases[s])for s in aliases]))
         return aliases
     def _parse_config(self, data, filename, fileconfig, visited, aliases):
         path = os.path.abspath(filename)
@@ -257,12 +258,12 @@ class PrinterConfig:
         data = self._read_config_file(filename)
         aliases = self._read_aliases(filename)
         regular_data, autosave_data = self._find_autosave_data(data)
-        regular_config = self._build_config_wrapper(regular_data, filename, 
+        regular_config = self._build_config_wrapper(regular_data, filename,
                                                     aliases)
         autosave_data = self._strip_duplicates(autosave_data, regular_config)
-        self.autosave = self._build_config_wrapper(autosave_data, filename, 
+        self.autosave = self._build_config_wrapper(autosave_data, filename,
                                                    aliases)
-        cfg = self._build_config_wrapper(regular_data + autosave_data, 
+        cfg = self._build_config_wrapper(regular_data + autosave_data,
                                          filename, aliases)
         self._build_status(cfg)
         return cfg
